@@ -1,6 +1,9 @@
 package pkg1
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func mulfunc(i int) (int, error) {
 	return i * 2, nil
@@ -14,4 +17,9 @@ func errCheckFunc() {
 	fmt.Println(res)     // want "expression returns unchecked error"
 	go mulfunc(5)        // want "unchecked error in goroutine call"
 	defer mulfunc(5)     // want "unchecked error in defer call"
+	sl := []string{"foo", "bar", "buzz"}
+
+	//staticcheck check:
+	sl = sort.StringSlice(sl) // sort.StringSlice — это не функция, а тип, выражение не отсортирует sl
+	// чтобы отсортировать, нужно сделать sort.StringSlice(sl).Sort()
 }
