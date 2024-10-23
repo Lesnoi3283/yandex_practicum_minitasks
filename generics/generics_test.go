@@ -14,6 +14,7 @@ func Reverse[T int | string | float64](s []T) []T {
 		s[i] = s[j]
 		s[j] = tmp
 	}
+
 	return s
 }
 
